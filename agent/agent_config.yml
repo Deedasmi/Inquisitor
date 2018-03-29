@@ -1,4 +1,5 @@
 # machine_identifier: name_of_this_machine
+max_panics: 1
 receptor:
     host: 127.0.0.1
     port: 1478
