@@ -20,9 +20,16 @@ Anything that would break a plugin. i.e. changing the function signature require
 ## API Requirements
 Must have a new function with following signature. Replace AgentPlugin with ReceptorPlugin for receptor plugins.
 ```
-pub fn new(PathBuf) -> Result<T: AgentPlugin, U: Display>;
+pub fn new(PathBuf) -> Result<impl AgentPlugin, impl std::fmt::Display>;
 ```
-Yes, I know that's not a valid signature. But that's basically what is required.
+This is nightly-only syntax at the time of writing. You may use normal syntax, and we would recommend using the following syntax until issue #34511 is stabilized.
+Otherwise your plugin must be compiled with nightly rust.
+
+```
+pub fn new(PathBuf) -> Result<Plugin, String>;
+```
+
+Assuming Plugin implements AgentPlugin this definition will work. You may also return a std::io::error, or any other error that implements Display.
 
 TODO explain PathBuf and how to read configs
 
